@@ -1,8 +1,19 @@
 #include <dpp/dpp.h>
- 
-const std::string BOT_TOKEN = "MTE1MjMzODI0NzI2Mzk5Mzk3Nw.GOpd5S.DfMXXmX8msLwr9qKc6okjp8FCVVCVxvFR4RDno";
- 
+
+std::string readToken(const std::string& filePath){
+    std::ifstream file(filePath);
+    if(file.is_open()){
+        std::string token;
+        std::getline(file, token);
+        return token;
+    } else{
+        std::cerr << "File wasn't open properly." << std::endl;
+    }
+}
+
 int main() {
+    const std::string BOT_TOKEN = readToken("tokens.txt");
+
     dpp::cluster bot(BOT_TOKEN);
  
     bot.on_log(dpp::utility::cout_logger());
